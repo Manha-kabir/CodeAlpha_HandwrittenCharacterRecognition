@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+.Python
+
+# Jupyter
+.ipynb_checkpoints
+
+# Data and models (large files)
+data/
+models/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
