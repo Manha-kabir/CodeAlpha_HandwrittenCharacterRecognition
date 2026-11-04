@@ -1,143 +1,40 @@
-🧠 Handwritten Character Recognition
-CodeAlpha Internship – Machine Learning Project
+# Handwritten Digit Recognition (CNN on MNIST)
 
-This project is part of the CodeAlpha Internship Program.
-The goal is to build a machine learning model that can read and recognize handwritten characters using deep learning (CNN).
+CodeAlpha Internship – Machine Learning project.
 
-📌 Project Overview
+A convolutional neural network built with TensorFlow/Keras that recognises handwritten digits (0–9) from the MNIST dataset.
 
-Handwritten Character Recognition means teaching a computer to look at an image of a letter or number and correctly identify what it is.
+## Results
+- Trained on **54,000** images (60,000 MNIST train images, 10% held out for validation)
+- **5 epochs**, batch size 64, Adam optimiser
+- **98.97% accuracy** on the 10,000-image MNIST test set
+- Classification report and confusion matrix in the notebook
 
-In this project, I used:
+## Model
+```
+Conv2D(32, 3x3, ReLU) -> MaxPool(2x2)
+Conv2D(64, 3x3, ReLU) -> MaxPool(2x2)
+Flatten -> Dense(128, ReLU) -> Dense(10, softmax)
+```
+~225K trainable parameters. Loss: sparse categorical cross-entropy.
 
-EMNIST dataset → images of handwritten letters
+## Pipeline
+1. Load MNIST via `keras.datasets.mnist`
+2. Normalise pixels 0–255 to 0.0–1.0 and add a channel dimension (28x28x1)
+3. Split off a validation set with `train_test_split`
+4. Train the CNN, plot loss/accuracy curves
+5. Evaluate on the test set, print classification report and confusion matrix
+6. Save the trained model to `models/mnist_cnn.h5`
 
-Python
-
-TensorFlow/Keras → to build the Convolutional Neural Network (CNN)
-
-Jupyter Notebook → for running the code step-by-step
-
-🗂 Folder Structure
-Handwritten_Character_Recognition/
-│
-├── data/                       # Dataset files (EMNIST)
-├── models/                     # Saved trained models (.h5 files)
-├── src/                        # Source code
-│   ├── load_data.py
-│   ├── train_model.py
-│   ├── evaluate_model.py
-│   └── predict.py
-│
-├── notebooks/
-│   └── character_recognition.ipynb
-│
-├── requirements.txt
-├── .gitignore
-└── README.md
-
-🔧 Technologies Used
-
-Python 3.10+
-
-Jupyter Notebook
-
-TensorFlow / Keras
-
-NumPy
-
-Matplotlib
-
-scikit-learn
-
-To install dependencies:
-
+## Run it
+```bash
 pip install -r requirements.txt
+jupyter notebook notebooks/hand_written.ipynb
+```
 
-📥 Dataset
-
-This project uses the EMNIST Letters Dataset, which contains 28×28 pixel grayscale images of handwritten alphabets.
-
-Dataset link (official):
-https://www.nist.gov/itl/products-and-services/emnist-dataset
-
-The dataset loads automatically through TensorFlow/Keras during execution.
-
-🧪 How the Project Works
-1️⃣ Data Loading
-
-The dataset is loaded, reshaped, and normalized so the model can understand the images.
-
-2️⃣ Data Preprocessing
-
-Pixel values are scaled (0–255 → 0–1)
-
-Labels are converted into numerical categories
-
-Data is split into training and testing
-
-3️⃣ Model Building (CNN)
-
-A Convolutional Neural Network (CNN) is used because it works best for image recognition tasks.
-
-The model contains:
-
-Convolution layers
-
-Max-Pooling layers
-
-Dense layers
-
-Softmax output layer
-
-4️⃣ Training
-
-The model learns patterns in handwritten characters.
-
-5️⃣ Evaluation
-
-Accuracy and loss are calculated using test data.
-
-6️⃣ Saving
-
-The trained model is saved into /models/model.h5
-
-▶️ How to Run the Project
-Option A — Run the Notebook
-
-Open terminal
-
-Run:
-
-jupyter notebook
-
-
-Open the file:
-
-notebooks/hand_written.ipynb
-
-
-Run all cells.
-
-Option B — Run as Python Script
-python src/train_model.py
-python src/evaluate_model.py
-
-📊 Results
-
-The final CNN model achieves high accuracy in recognizing handwritten characters from EMNIST.
-
-Accuracy varies depending on the number of training epochs.
-
-Example:
-
-Training Accuracy: ~99%
-Testing Accuracy:  98%
-
-🎥 Project Video
-
-A video explanation of the project has been uploaded on LinkedIn as required for the internship.
-
-🔗 GitHub Repository:
-
-https://github.com/Manha-kabir/CodeAlpha_HandwrittenCharacterRecognition
+## Structure
+```
+models/mnist_cnn.h5          # trained model
+notebooks/hand_written.ipynb # full pipeline
+requirements.txt
+```
